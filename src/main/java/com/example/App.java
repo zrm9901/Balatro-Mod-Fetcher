@@ -87,28 +87,35 @@ public class App {
         } catch (Exception e) {
             System.out.println("something went wrong");
         }
-        for (String x : modsList) {
-            String[] split = x.split("/");
-            if (windows) {
-                String path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
-                Path d = Paths.get(path + split[split.length -1]);
-                File c = new File(path + split[split.length -1]);
-                if (Files.exists(d)) {
-                    System.out.println("it exists");
-                    try {
-                        FileUtils.deleteDirectory(c);
-                    } catch (Exception e) {
-                        System.out.println("it failed");
+        int os = 1;
+        String path;
+        Path d;
+        File c;
+        switch (os) {
+            case 1:
+            for (String x : modsList) {
+                String[] split = x.split("/");
+                if (windows) {
+                    path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
+                    d = Paths.get(path + split[split.length -1]);
+                    c = new File(path + split[split.length -1]);
+                    if (Files.exists(d)) {
+                        System.out.println("it exists");
+                        try {
+                            FileUtils.deleteDirectory(c);
+                        } catch (Exception e) {
+                            System.out.println("it failed");
+                        }
+                        clone(path, x);
+                        
+                    } else {
+                        clone(path, x);
                     }
-                    clone(path, x);
-                    
-                } else {
-                    clone(path, x);
                 }
+               
+               
+                
             }
-           
-           
-            
         }
     }
 }

@@ -87,35 +87,48 @@ public class App {
         } catch (Exception e) {
             System.out.println("something went wrong");
         }
-        int os = 1;
+        System.out.println("Enter the correct OS for your computer \nWindows: 1 \nLinux: 2 \nMac: 3");
+        Scanner sc = new Scanner(System.in);
+        int os;
+        while (true) {
+            try {
+                os = sc.nextInt();
+                break;
+            } catch (Exception e) {
+                System.out.println("Enter the correct OS for your computer \nWindows: 1 \nLinux: 2 \nMac: 3");
+            }
+        }
         String path;
         Path d;
         File c;
         switch (os) {
             case 1:
-            for (String x : modsList) {
-                String[] split = x.split("/");
-                if (windows) {
-                    path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
-                    d = Paths.get(path + split[split.length -1]);
-                    c = new File(path + split[split.length -1]);
-                    if (Files.exists(d)) {
-                        System.out.println("it exists");
-                        try {
-                            FileUtils.deleteDirectory(c);
-                        } catch (Exception e) {
-                            System.out.println("it failed");
+                for (String x : modsList) {
+                    String[] split = x.split("/");
+                    if (windows) {
+                        path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
+                        d = Paths.get(path + split[split.length -1]);
+                        c = new File(path + split[split.length -1]);
+                        if (Files.exists(d)) {
+                            System.out.println("it exists");
+                            try {
+                                FileUtils.deleteDirectory(c);
+                            } catch (Exception e) {
+                                System.out.println("it failed");
+                            }
+                            clone(path, x);
+                            
+                        } else {
+                            clone(path, x);
                         }
-                        clone(path, x);
-                        
-                    } else {
-                        clone(path, x);
                     }
                 }
-               
-               
-                
-            }
+            case 2:
+                System.out.println("I dont have the mdos folder for your system, please create an issue on github with your OS, the store you got the game from, and the mods directory");
+                break;
+            case 3:
+                System.out.println("I dont have the mdos folder for your system, please create an issue on github with your OS, the store you got the game from, and the mods directory");
+                break;
         }
     }
 }

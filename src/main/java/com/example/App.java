@@ -12,9 +12,7 @@ import java.nio.file.*;
 import org.apache.commons.io.FileUtils;
 public class App {
     
-    static String path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
-    
-    public static void clone(String x) {
+    public static void clone(String path, String x) {
         String[] split = x.split("/");
         String dir = split[split.length - 1];
         File directory = new File(path + dir);
@@ -62,6 +60,7 @@ public class App {
                             }
                         }
                     }
+                    
                 }
             } catch (Exception e) {
                 System.out.println("this went wrong");
@@ -75,6 +74,7 @@ public class App {
     }
 
     public static void main(String[] args) {
+        boolean windows = true;
         ArrayList<String> modsList = new ArrayList<>();
         try {
             File mods = new File("mods.txt");
@@ -89,20 +89,25 @@ public class App {
         }
         for (String x : modsList) {
             String[] split = x.split("/");
-            Path d = Paths.get(path + "\\" + split[split.length -1]);
-            File c = new File(path + "\\" + split[split.length -1]);
-            if (Files.exists(d)) {
-                System.out.println("it exists");
-                try {
-                    FileUtils.deleteDirectory(c);
-                } catch (Exception e) {
-                    System.out.println("it failed");
+            if (windows) {
+                String path = System.getenv("APPDATA") + "\\Balatro\\Mods";
+                Path d = Paths.get(path + "\\" + split[split.length -1]);
+                File c = new File(path + "\\" + split[split.length -1]);
+                if (Files.exists(d)) {
+                    System.out.println("it exists");
+                    try {
+                        FileUtils.deleteDirectory(c);
+                    } catch (Exception e) {
+                        System.out.println("it failed");
+                    }
+                    clone(path, x);
+                    
+                } else {
+                    clone(path, x);
                 }
-                clone(x);
-                
-            } else {
-                clone(x);
             }
+           
+           
             
         }
     }

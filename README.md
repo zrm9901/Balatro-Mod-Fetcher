@@ -17,3 +17,5 @@ https://github.com/jenwalter666/JensBalatroCollection <br>
 https://github.com/betmma/my_balatro_mods
 
 Warning, some of betmma's mods are incompatible with jensmodcollection, you will need to manually get rid of Betmmas_abilities and betmmas_spells
+
+If you want support for your os, give me your mods path and platform (and preferably store) so I can add it

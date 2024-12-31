@@ -105,8 +105,28 @@ public class App {
             case 1:
                 for (String x : modsList) {
                     String[] split = x.split("/");
-                    if (windows) {
-                        path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
+                    path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
+                    d = Paths.get(path + split[split.length -1]);
+                    c = new File(path + split[split.length -1]);
+                    if (Files.exists(d)) {
+                        System.out.println("it exists");
+                        try {
+                            FileUtils.deleteDirectory(c);
+                        } catch (Exception e) {
+                            System.out.println("it failed");
+                        }
+                        clone(path, x);
+                        
+                    } else {
+                        clone(path, x);
+                    }
+                }
+                break;
+            case 2:
+                for (String x : modsList) {
+                    String[] split = x.split("/");
+                    path = "~/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods";
+                    if (Files.exists(Paths.get(path))) {
                         d = Paths.get(path + split[split.length -1]);
                         c = new File(path + split[split.length -1]);
                         if (Files.exists(d)) {
@@ -122,12 +142,11 @@ public class App {
                             clone(path, x);
                         }
                     }
+                    
                 }
-            case 2:
-                System.out.println("I dont have the mdos folder for your system, please create an issue on github with your OS, the store you got the game from, and the mods directory");
                 break;
             case 3:
-                System.out.println("I dont have the mdos folder for your system, please create an issue on github with your OS, the store you got the game from, and the mods directory");
+                System.out.println("placeholder");
                 break;
         }
     }

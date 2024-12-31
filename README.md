@@ -19,3 +19,5 @@ https://github.com/betmma/my_balatro_mods
 Just a warning, some of the JensBalatroCollection stuff is incompatable with my_balatro_mods, so you will need to delete Betmma_Abilities and Betmma_Spells manually for your game to launch.
 
 This was inspired from the original mods fetcher from the cryptid github, but I was annoyed that it didnt search subfolders so I made this.
+
+Btw, when updating you will have to delete the things you want updated in the mods folder, as trying to delete them in python runs into some permission stuff that I couldnt get working

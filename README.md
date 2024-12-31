@@ -6,14 +6,14 @@ You need to have Python installed for it to work, then you need to make a mods.t
 You will need to have run the game at least once and this will only work on windows for now. if you want me to add support for your os, include the store you got the game from and where the mods folder is.
 
 Example mods.txt:
-https://github.com/Steamopollys/Steamodded
-https://github.com/MathIsFun0/Talisman
-https://github.com/MathIsFun0/Cryptid
-https://github.com/SDM0/SDM_0-s-Stuff
-https://github.com/larswijn/CardSleeves
-https://github.com/Eremel/Galdur
-https://github.com/SleepyG11/HandyBalatro
-https://github.com/jenwalter666/JensBalatroCollection
+https://github.com/Steamopollys/Steamodded \n
+https://github.com/MathIsFun0/Talisman \n
+https://github.com/MathIsFun0/Cryptid \n
+https://github.com/SDM0/SDM_0-s-Stuff \n
+https://github.com/larswijn/CardSleeves \n
+https://github.com/Eremel/Galdur \n
+https://github.com/SleepyG11/HandyBalatro \n
+https://github.com/jenwalter666/JensBalatroCollection \n
 https://github.com/betmma/my_balatro_mods
 
 Just a warning, some of the JensBalatroCollection stuff is incompatable with my_balatro_mods, so you will need to delete Betmma_Abilities and Betmma_Spells manually for your game to launch.

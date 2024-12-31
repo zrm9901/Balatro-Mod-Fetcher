@@ -21,3 +21,5 @@ Just a warning, some of the JensBalatroCollection stuff is incompatable with my_
 This was inspired from the original mods fetcher from the cryptid github, but I was annoyed that it didnt search subfolders so I made this.
 
 Btw, when updating you will have to delete the things you want updated in the mods folder, as trying to delete them in python runs into some permission stuff that I couldnt get working
+
+Also, I get it if you dont want to run the release, you can also do "pip install gitpython" and then run the original .py file, the .pyz file just has gitpython bundled with it

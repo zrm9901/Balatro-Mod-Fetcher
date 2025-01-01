@@ -11,67 +11,79 @@ import org.eclipse.jgit.api.Git;
 import java.nio.file.*;
 import org.apache.commons.io.FileUtils;
 public class App {
-    
-    public static void clone(String path, String x) {
-        String[] split = x.split("/");
-        String dir = split[split.length - 1];
-        File directory = new File(path + dir);
-        try {
-            System.out.println("Cloning Into:" + directory);
-            ArrayList<File> a= new ArrayList<>();
-            Git clone = Git.cloneRepository()
-                .setURI(x)
-                .setDirectory(directory)
-                .setDepth(1)
-                .call();
-            clone.close();
+    static class MyThread extends Thread {
+        String path;
+        String x;
+        public MyThread(String path, String x) {
+            this.path = path;
+            this.x = x;
+        }
+        @Override
+        public void run() {
+            clone(this.path, this.x);
+}
+        public static void clone(String path, String x) {
+            String[] split = x.split("/");
+            String dir = split[split.length - 1];
+            File directory = new File(path + dir);
             try {
-                File[] files = directory.listFiles();
-                for (File file : files) {
-                    if (file.isDirectory()) {
-                        a.add(file);
+                System.out.println("Cloning Into:" + directory);
+                ArrayList<File> a= new ArrayList<>();
+                Git clone = Git.cloneRepository()
+                    .setURI(x)
+                    .setDirectory(directory)
+                    .setDepth(1)
+                    .call();
+                clone.close();
+                try {
+                    File[] files = directory.listFiles();
+                    for (File file : files) {
+                        if (file.isDirectory()) {
+                            a.add(file);
+                        }
                     }
-                }
-                File base = new File(directory + "\\assets");
-                File git = new File(directory + "\\.git");
-                File github = new File(directory + "\\.github");
-                File README = new File(directory + "\\README.MD");
-                if (!a.contains(base)) {
-                    for (File v : a) {
-                        if (!v.equals(git) && !v.equals(github) && !v.equals(README)) {
-                            Path u = Paths.get(path + "\\" + v.getName());
-                            File f = new File(path + "\\" + v.getName());
-                            if (Files.exists(u)) {
-                                FileUtils.deleteDirectory(f);
-                                try {
-                                    FileUtils.copyDirectory(v, f);
-                                } catch (Exception e) {
-                                    System.out.println("AAAAAAAAAA");
-                                }
-                                
-                            } else {
-                                System.out.println(v.getAbsolutePath());
-                                System.out.println(f.getAbsolutePath());
-                                try {
-                                    FileUtils.copyDirectory(v, f);
-                                } catch (Exception e) {
-                                    System.out.println("AAAAAAAAAA");
+                    File base = new File(directory + "\\assets");
+                    File git = new File(directory + "\\.git");
+                    File github = new File(directory + "\\.github");
+                    File README = new File(directory + "\\README.MD");
+                    if (!a.contains(base)) {
+                        for (File v : a) {
+                            if (!v.equals(git) && !v.equals(github) && !v.equals(README)) {
+                                Path u = Paths.get(path + "\\" + v.getName());
+                                File f = new File(path + "\\" + v.getName());
+                                if (Files.exists(u)) {
+                                    FileUtils.deleteDirectory(f);
+                                    try {
+                                        FileUtils.copyDirectory(v, f);
+                                    } catch (Exception e) {
+                                        System.out.println("AAAAAAAAAA");
+                                    }
+                                    
+                                } else {
+                                    System.out.println(v.getAbsolutePath());
+                                    System.out.println(f.getAbsolutePath());
+                                    try {
+                                        FileUtils.copyDirectory(v, f);
+                                    } catch (Exception e) {
+                                        System.out.println("AAAAAAAAAA");
+                                    }
                                 }
                             }
                         }
+                        
                     }
-                    
+                } catch (Exception e) {
+                    System.out.println("this went wrong");
                 }
+                
             } catch (Exception e) {
-                System.out.println("this went wrong");
+                System.out.println("error cloning repository");
             }
+    
             
-        } catch (Exception e) {
-            System.out.println("error cloning repository");
         }
-
-        
     }
+    
 
     public static void main(String[] args) {
         ArrayList<String> modsList = new ArrayList<>();
@@ -115,10 +127,12 @@ public class App {
                         } catch (Exception e) {
                             System.out.println("it failed");
                         }
-                        clone(path, x);
+                        MyThread thread = new MyThread(path, x);
+                        thread.start();
                         
                     } else {
-                        clone(path, x);
+                        MyThread thread = new MyThread(path, x);
+                        thread.start();
                     }
                 }
                 break;
@@ -136,10 +150,12 @@ public class App {
                             } catch (Exception e) {
                                 System.out.println("it failed");
                             }
-                            clone(path, x);
+                            MyThread thread = new MyThread(path, x);
+                            thread.start();
                             
                         } else {
-                            clone(path, x);
+                            MyThread thread = new MyThread(path, x);
+                            thread.start();
                         }
                     }
                     

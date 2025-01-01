@@ -83,7 +83,9 @@ public class App {
             
         }
     }
-    
+    public static void notFound() {
+        System.out.println("~/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods \nmoving to next one / your edition may not be supported");
+    }
 
     public static void main(String[] args) {
         ArrayList<String> modsList = new ArrayList<>();
@@ -157,6 +159,8 @@ public class App {
                             MyThread thread = new MyThread(path, x);
                             thread.start();
                         }
+                    } else {
+                        notFound();
                     }
                     
                 }

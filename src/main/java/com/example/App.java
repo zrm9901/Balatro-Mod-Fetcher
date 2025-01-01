@@ -74,7 +74,6 @@ public class App {
     }
 
     public static void main(String[] args) {
-        boolean windows = true;
         ArrayList<String> modsList = new ArrayList<>();
         try {
             File mods = new File("mods.txt");
@@ -98,6 +97,7 @@ public class App {
                 System.out.println("Enter the correct OS for your computer \nWindows: 1 \nLinux: 2 \nMac: 3");
             }
         }
+        sc.close();
         String path;
         Path d;
         File c;

@@ -70,8 +70,8 @@ public class App {
                                 }
                             }
                         }
-                        
                     }
+                    System.out.println("Done Cloning into: " + directory);
                 } catch (Exception e) {
                     System.out.println("this went wrong");
                 }

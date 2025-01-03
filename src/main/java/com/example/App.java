@@ -68,7 +68,9 @@ class App {
             for (File file : path.listFiles()) {
                 if (!file.getName().equals(".github") && !file.getName().equals(".git") && !file.getName().equals("README.md")) {
                     try {
-                        System.out.println(path + "/" + file);
+                        if (new File(modsFolder, file.getName()).exists()) {
+                            FileUtils.deleteDirectory(new File(modsFolder, file.getName()));
+                        }
                         Files.move(Paths.get(path + "/" + file.getName()), Paths.get(modsFolder + "/" + file.getName()), StandardCopyOption.REPLACE_EXISTING);
                     } catch (Exception e) {
                         System.out.println("something went wong");

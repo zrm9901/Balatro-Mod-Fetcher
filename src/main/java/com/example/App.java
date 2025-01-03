@@ -20,7 +20,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
+import java.net.URI;
 
 class App {
     static String modsFolder;
@@ -235,12 +235,18 @@ class App {
         }
     }
     public static void downloadFile(String fileUrl, String destinationPath) throws IOException {
-        URL url = new URL(fileUrl);
-        try (InputStream in = url.openStream();
-             ReadableByteChannel rbc = Channels.newChannel(in);
-             FileOutputStream fos = new FileOutputStream(destinationPath)) {
-            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        try {
+            URI uri = new URI(fileUrl);
+            URL url = uri.toURL();  
+            try (InputStream in = url.openStream();
+                ReadableByteChannel rbc = Channels.newChannel(in);
+                FileOutputStream fos = new FileOutputStream(destinationPath)) {
+                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        
     }
     private static String getLatestReleaseTag() {
         String apiUrl = "https://api.github.com/repos/ethangreen-dev/lovely-injector/releases/latest";

@@ -1,173 +1,245 @@
 package com.example;
 
-/**
- * Hello world!
- *
- */
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.eclipse.jgit.api.Git;
 import java.nio.file.*;
 import org.apache.commons.io.FileUtils;
-public class App {
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+import java.io.IOException;
+import org.json.JSONArray;
+import java.io.*;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.util.zip.*;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipEntry;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.Arrays;
+
+class App {
     static class MyThread extends Thread {
         String path;
         String x;
-        public MyThread(String path, String x) {
-            this.path = path;
-            this.x = x;
+        public MyThread() {
         }
         @Override
         public void run() {
-            clone(this.path, this.x);
-}
-        public static void clone(String path, String x) {
-            String[] split = x.split("/");
-            String dir = split[split.length - 1];
-            File directory = new File(path + dir);
-            try {
-                System.out.println("Cloning Into:" + directory);
-                ArrayList<File> a= new ArrayList<>();
-                Git clone = Git.cloneRepository()
-                    .setURI(x)
-                    .setDirectory(directory)
-                    .setDepth(1)
-                    .call();
-                clone.close();
-                try {
-                    File[] files = directory.listFiles();
-                    for (File file : files) {
-                        if (file.isDirectory()) {
-                            a.add(file);
-                        }
-                    }
-                    File base = new File(directory + "\\assets");
-                    File git = new File(directory + "\\.git");
-                    File github = new File(directory + "\\.github");
-                    File README = new File(directory + "\\README.MD");
-                    if (!a.contains(base)) {
-                        for (File v : a) {
-                            if (!v.equals(git) && !v.equals(github) && !v.equals(README)) {
-                                Path u = Paths.get(path + "\\" + v.getName());
-                                File f = new File(path + "\\" + v.getName());
-                                if (Files.exists(u)) {
-                                    FileUtils.deleteDirectory(f);
-                                    try {
-                                        FileUtils.copyDirectory(v, f);
-                                    } catch (Exception e) {
-                                        System.out.println("AAAAAAAAAA");
-                                    }
-                                    
-                                } else {
-                                    System.out.println(v.getAbsolutePath());
-                                    System.out.println(f.getAbsolutePath());
-                                    try {
-                                        FileUtils.copyDirectory(v, f);
-                                    } catch (Exception e) {
-                                        System.out.println("AAAAAAAAAA");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    System.out.println("Done Cloning into: " + directory);
-                } catch (Exception e) {
-                    System.out.println("this went wrong");
-                }
-                
-            } catch (Exception e) {
-                System.out.println("error cloning repository");
-            }
-    
-            
         }
     }
-    public static void notFound() {
-        System.out.println("~/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods \nmoving to next one / your edition may not be supported");
-    }
-
-    public static void main(String[] args) {
-        ArrayList<String> modsList = new ArrayList<>();
+    public static ArrayList<String> read() {
+        ArrayList<String> read = new ArrayList<>();
+        File mods = new File("mods.txt");
         try {
-            File mods = new File("mods.txt");
             Scanner sc = new Scanner(mods);
             while (sc.hasNextLine()) {
-                modsList.add(sc.nextLine());
+                read.add(sc.nextLine());
             }
-            sc.close();
-            
+            return read;
         } catch (Exception e) {
-            System.out.println("something went wrong");
+            System.out.println("Something went wrong reading file");
+            return read();
         }
-        System.out.println("Enter the correct OS for your computer \nWindows: 1 \nLinux: 2 \nMac: 3");
-        Scanner sc = new Scanner(System.in);
-        int os;
-        while (true) {
-            try {
-                os = sc.nextInt();
-                break;
-            } catch (Exception e) {
-                System.out.println("Enter the correct OS for your computer \nWindows: 1 \nLinux: 2 \nMac: 3");
-            }
-        }
-        sc.close();
-        String path;
-        Path d;
-        File c;
-        switch (os) {
-            case 1:
-                for (String x : modsList) {
-                    String[] split = x.split("/");
-                    path = System.getenv("APPDATA") + "\\Balatro\\Mods\\";
-                    d = Paths.get(path + split[split.length -1]);
-                    c = new File(path + split[split.length -1]);
-                    if (Files.exists(d)) {
-                        System.out.println("it exists");
-                        try {
-                            FileUtils.deleteDirectory(c);
-                        } catch (Exception e) {
-                            System.out.println("it failed");
-                        }
-                        MyThread thread = new MyThread(path, x);
-                        thread.start();
-                        
-                    } else {
-                        MyThread thread = new MyThread(path, x);
-                        thread.start();
-                    }
-                }
-                break;
-            case 2:
-                for (String x : modsList) {
-                    String[] split = x.split("/");
-                    path = "~/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods";
-                    if (Files.exists(Paths.get(path))) {
-                        d = Paths.get(path + split[split.length -1]);
-                        c = new File(path + split[split.length -1]);
-                        if (Files.exists(d)) {
-                            System.out.println("it exists");
-                            try {
-                                FileUtils.deleteDirectory(c);
-                            } catch (Exception e) {
-                                System.out.println("it failed");
+    }
+    public static void clone(String path, String url) {
+        
+    }
+    public static boolean checkPath(String path, String directory, int os) {
+        try {
+            File check = new File(path);
+            File lovely = new File(directory + "/lovely.dll");
+            if (!check.exists()) {
+
+                System.out.println("Mods folder not detected, fetching lovely");
+                String apiUrl = ("https://api.github.com/repos/ethangreen-dev/lovely-injector/releases/tags/" + getLatestReleaseTag());
+                OkHttpClient client = new OkHttpClient();
+
+                Request request = new Request.Builder().url(apiUrl).build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        String responseBody = response.body().string();
+                        JSONObject release = new JSONObject(responseBody);
+
+                        JSONArray assets = release.getJSONArray("assets");
+                        if (assets.length() > 0) {
+                            for (int i = 0; i < assets.length(); i++) {
+                                try {
+                                    JSONObject asset = assets.getJSONObject(i);
+                                    String assetName = asset.getString("name");
+                                    String assetDownloadUrl = asset.getString("browser_download_url");;
+                                    
+                                    if (os ==0 && i == 0) {
+                                        downloadFile(assetDownloadUrl, directory + "/" + assetName);
+                                        System.out.println("Download complete: " + assetName);
+                                        File zipFile = new File(directory + "/" + assetName);
+                                        String zipFilePath = (directory + "/" + assetName);
+                                        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
+                                            ZipEntry zipEntry;
+                                            String fileName = "version.dll";
+                                            // Iterate through each entry in the ZIP file
+                                            while ((zipEntry = zis.getNextEntry()) != null) {
+                                                if (zipEntry.getName().equals(fileName)) {
+                                                    File outputFile = new File(directory, fileName);
+                                
+                                                    // Ensure parent directories exist
+                                                    outputFile.getParentFile().mkdirs();
+                                
+                                                    try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                                                        byte[] buffer = new byte[1024];
+                                                        int length;
+                                                        while ((length = zis.read(buffer)) > 0) {
+                                                            fos.write(buffer, 0, length);
+                                                        }
+                                                    }
+                                
+                                                    System.out.println("File extracted to: " + outputFile.getAbsolutePath());
+                                                    return false;
+                                                }
+                                            }
+                                        }
+
+
+                                    } else if (os == 1 && i == 1) {
+                                        downloadFile(assetDownloadUrl, directory + "/" + assetName);
+                                        System.out.println("Download complete: " + assetName);
+                                        File zipFile = new File(directory + "/" + assetName);
+                                        String zipFilePath = (directory + "/" + assetName);
+                                        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
+                                            ZipEntry zipEntry;
+                                            String fileName = "version.dll";
+                                            // Iterate through each entry in the ZIP file
+                                            while ((zipEntry = zis.getNextEntry()) != null) {
+                                                if (zipEntry.getName().equals(fileName)) {
+                                                    File outputFile = new File(directory, fileName);
+                                
+                                                    // Ensure parent directories exist
+                                                    outputFile.getParentFile().mkdirs();
+                                
+                                                    try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                                                        byte[] buffer = new byte[1024];
+                                                        int length;
+                                                        while ((length = zis.read(buffer)) > 0) {
+                                                            fos.write(buffer, 0, length);
+                                                        }
+                                                    }
+                                
+                                                    System.out.println("File extracted to: " + outputFile.getAbsolutePath());
+                                                    return false;
+                                                }
+                                            }
+                                        }
+
+
+
+
+                                    } else if (os == 2 && i == 2) {
+                                        downloadFile(assetDownloadUrl, directory + "/" + assetName);
+                                        System.out.println("Download complete: " + assetName);
+                                        File zipFile = new File(directory + "/" + assetName);
+                                        String zipFilePath = (directory + "/" + assetName);
+                                        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
+                                            ZipEntry zipEntry;
+                                            String fileName = "version.dll";
+                                            // Iterate through each entry in the ZIP file
+                                            while ((zipEntry = zis.getNextEntry()) != null) {
+                                                if (zipEntry.getName().equals(fileName)) {
+                                                    File outputFile = new File(directory, fileName);
+                                
+                                                    // Ensure parent directories exist
+                                                    outputFile.getParentFile().mkdirs();
+                                
+                                                    try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                                                        byte[] buffer = new byte[1024];
+                                                        int length;
+                                                        while ((length = zis.read(buffer)) > 0) {
+                                                            fos.write(buffer, 0, length);
+                                                        }
+                                                    }
+                                
+                                                    System.out.println("File extracted to: " + outputFile.getAbsolutePath());
+
+                                                    return false;
+                                                }
+                                            }
+                                        }
+
+
+
+
+                                    }
+
+                                } catch (Exception e) {
+                                    System.out.println(e.getMessage());
+                                }
                             }
-                            MyThread thread = new MyThread(path, x);
-                            thread.start();
-                            
                         } else {
-                            MyThread thread = new MyThread(path, x);
-                            thread.start();
+                            System.out.println("no assets found");
                         }
                     } else {
-                        notFound();
+                        System.out.println("cant fetch release");
                     }
-                    
                 }
-                break;
-            case 3:
-                System.out.println("placeholder");
-                break;
+                return false;
+            }  else {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching lovely");
+            return false;
+        }
+    }
+    public static void downloadFile(String fileUrl, String destinationPath) throws IOException {
+        URL url = new URL(fileUrl);
+        try (InputStream in = url.openStream();
+             ReadableByteChannel rbc = Channels.newChannel(in);
+             FileOutputStream fos = new FileOutputStream(destinationPath)) {
+            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+        }
+    }
+    private static String getLatestReleaseTag() {
+        String apiUrl = "https://api.github.com/repos/ethangreen-dev/lovely-injector/releases/latest";
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(apiUrl)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful() && response.body() != null) {
+                String responseBody = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseBody);
+                System.out.println(jsonObject.getString("tag_name"));
+                return jsonObject.getString("tag_name"); // Get the latest tag
+            } else {
+                System.err.println("Failed to fetch latest release: " + response.message());
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("failed to fetch latest release");
+            return null;
+        }
+    }
+    public static void main(String[] args) {
+
+        ArrayList<String> mods = read();
+        if (!mods.isEmpty()) {
+            if (!checkPath((System.getProperty("user.home")) + "\\AppData/Roaming\\Balatro\\Mods", "C\\Program Files (x86)\\Steam\\steamapps\\common\\Balatro", 2) && Arrays.asList("Windows 10", "Windows 11").contains(System.getProperty("os.name")) || 
+            !checkPath("/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods", "/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Balatro", 2) && System.getProperty("os.name").equals("Linux")) 
+            {
+                System.out.println("Lovely, downloaded and extracted, please start Balatro at least once to populate the mods folder");
+            } else {
+                System.out.println("cloning now");
+            }
+
+        } else {
+            System.out.println("No mods found in mods.txt / no mods.txt found. Make sure you have a mods.txt with at least one repository in it.");
         }
     }
 }

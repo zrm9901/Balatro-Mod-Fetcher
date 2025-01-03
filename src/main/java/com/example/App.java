@@ -25,7 +25,7 @@ import java.net.URI;
 class App {
     static String modsFolder;
     class MyThread extends Thread {
-        private final String url;
+        private String url;
 
         public MyThread(String url) {
             this.url = url;
@@ -93,7 +93,7 @@ class App {
             sc.close();
             return read;
         } catch (Exception e) {
-            System.out.println("Something went wrong reading file");
+            System.out.println("Something went wrong reading file" + e.getMessage());
             return read();
         }
     }
@@ -204,7 +204,7 @@ class App {
                 return null;
             }
         } catch (Exception e) {
-            System.out.println("failed to fetch latest release");
+            System.out.println("failed to fetch latest release: ");
             return null;
         }
     }
@@ -228,7 +228,6 @@ class App {
                 System.out.println("cloning now");
                 for (int i = 0; i < mods.size(); i++) {
                     MyThread thread = app.new MyThread(mods.get(i));
-                    thread.start();
                     thread.start();
                 }
                 }

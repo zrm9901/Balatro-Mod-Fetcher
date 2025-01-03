@@ -233,6 +233,7 @@ class App {
                 System.out.println("hi");
             }
             steamApps.add(System.getProperty("os.home") + "/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps");
+            steamApps.add(System.getProperty("os.home") + "/.local/share/Steam/steamapps");
             sc.close();
             if (checkPath(steamApps) != null) {
                 System.out.println("cloning now");

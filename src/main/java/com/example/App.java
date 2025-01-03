@@ -111,7 +111,7 @@ class App {
                 
                 File direct = new File(directory);        
                 if (!check.exists() && direct.exists()) {
-                    returns = steamApps;
+                    
                     System.out.println(check.exists());
                     System.out.println(direct.exists());
                     System.out.println("Mods folder not detected, fetching lovely");
@@ -129,7 +129,7 @@ class App {
                                         JSONObject asset = assets.getJSONObject(i);
                                         String assetName = asset.getString("name");
                                         String assetDownloadUrl = asset.getString("browser_download_url");;
-                                        
+                                        if (assetName.equals("lovely-x86_64-pc-windows-msvc.zip")) {
                                         downloadFile(assetDownloadUrl, directory + File.separator + assetName);
                                         System.out.println("Download complete: " + assetName);
                                         String zipFilePath = (directory + File.separator + assetName);
@@ -155,6 +155,7 @@ class App {
                                                 }
                                             }
                                         }
+                                    }
                                     } catch (Exception e) {
                                         e.getStackTrace();
                                         returns = null;
@@ -171,10 +172,9 @@ class App {
                             return returns;
                         }
                     }
-                    return returns;
                 } else if (check.exists() && direct.exists()) {
-                    returns = steamApps;
-                    System.out.println("returns");
+                    returns = path;
+                    System.out.println(returns);
                     return returns;
                 }
             }
@@ -233,12 +233,14 @@ class App {
                 steamApps.add(directory);
                 System.out.println("hi");
             }
-            steamApps.add(System.getProperty("os.home") + "/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps");
-            steamApps.add(System.getProperty("os.home") + "/.local/share/Steam/steamapps");
+            steamApps.add(System.getProperty("user.home") + "/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps");
+            steamApps.add(System.getProperty("user.home") + "/.local/share/Steam/steamapps");
             sc.close();
-            if (checkPath(steamApps) != null) {
+            modsFolder = checkPath(steamApps);
+            System.out.println(modsFolder);
+            if (modsFolder != null) {
                 System.out.println("cloning now");
-                modsFolder = checkPath(steamApps);
+                
                 System.out.println(modsFolder);
                 if (mods.size() > 0) {
                     for (int i = 0; i < mods.size(); i++) {
@@ -248,17 +250,7 @@ class App {
                 } else {
                     System.out.println("Arralist mods is empty");
                 }
-            } else {
-                System.out.println("cloning now");
-                if (mods.size() > 0) {
-                    for (int i = 0; i < mods.size(); i++) {
-                        MyThread thread = app.new MyThread(mods.get(i));
-                        thread.start();
-                    }
-                } else {
-                    System.out.println("Arralist mods is empty");
-                }
-            }
+            } 
         } else {
             System.out.println("No mods found in mods.txt / no mods.txt found. Make sure you have a mods.txt with at least one repository in it.");
         }

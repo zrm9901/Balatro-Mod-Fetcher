@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.example.AppTest" time="0.011" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.example.AppTest" time="0.089" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-21-openjdk/lib"/>
-    <property name="sun.java.command" value="/home/zrm9901/Java/Balatro-Mod-Fetcher/target/surefire/surefirebooter17009163062031615011.jar /home/zrm9901/Java/Balatro-Mod-Fetcher/target/surefire 2025-01-03T04-18-34_174-jvmRun1 surefire17910906833757925470tmp surefire_010787390938809849966tmp"/>
+    <property name="sun.java.command" value="/home/zrm9901/Java/Balatro-Mod-Fetcher/target/surefire/surefirebooter11680032441676465231.jar /home/zrm9901/Java/Balatro-Mod-Fetcher/target/surefire 2025-01-03T09-05-00_866-jvmRun1 surefire15101286545456854811tmp surefire_010681892117972284129tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/zrm9901/Java/Balatro-Mod-Fetcher/target/test-classes:/home/zrm9901/Java/Balatro-Mod-Fetcher/target/classes:/home/zrm9901/.m2/repository/com/squareup/okhttp3/okhttp/5.0.0-alpha.14/okhttp-5.0.0-alpha.14.jar:/home/zrm9901/.m2/repository/com/squareup/okio/okio-jvm/3.9.0/okio-jvm-3.9.0.jar:/home/zrm9901/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.9.23/kotlin-stdlib-1.9.23.jar:/home/zrm9901/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/home/zrm9901/.m2/repository/junit/junit/4.11/junit-4.11.jar:/home/zrm9901/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/zrm9901/.m2/repository/commons-io/commons-io/2.18.0/commons-io-2.18.0.jar:/home/zrm9901/.m2/repository/org/eclipse/jgit/org.eclipse.jgit/7.1.0.202411261347-r/org.eclipse.jgit-7.1.0.202411261347-r.jar:/home/zrm9901/.m2/repository/com/googlecode/javaewah/JavaEWAH/1.2.3/JavaEWAH-1.2.3.jar:/home/zrm9901/.m2/repository/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar:/home/zrm9901/.m2/repository/commons-codec/commons-codec/1.17.1/commons-codec-1.17.1.jar:/home/zrm9901/.m2/repository/org/json/json/20240303/json-20240303.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/zrm9901/Java/Balatro-Mod-Fetcher/target/surefire/surefirebooter17009163062031615011.jar"/>
+    <property name="surefire.real.class.path" value="/home/zrm9901/Java/Balatro-Mod-Fetcher/target/surefire/surefirebooter11680032441676465231.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.5+11"/>
     <property name="user.name" value="zrm9901"/>
@@ -53,5 +53,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.example.AppTest" time="0.002"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.example.AppTest" time="0.009"/>
 </testsuite>

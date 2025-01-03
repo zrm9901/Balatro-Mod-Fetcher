@@ -124,70 +124,7 @@ class App {
                                     JSONObject asset = assets.getJSONObject(i);
                                     String assetName = asset.getString("name");
                                     String assetDownloadUrl = asset.getString("browser_download_url");;
-                                    
-                                    if (os ==0 && i == 0) {
-                                        downloadFile(assetDownloadUrl, directory + "/" + assetName);
-                                        System.out.println("Download complete: " + assetName);
-                                        String zipFilePath = (directory + File.separator + assetName);
-                                        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
-                                            ZipEntry zipEntry;
-                                            String fileName = "version.dll";
-                                            // Iterate through each entry in the ZIP file
-                                            while ((zipEntry = zis.getNextEntry()) != null) {
-                                                if (zipEntry.getName().equals(fileName)) {
-                                                    File outputFile = new File(directory, fileName);
-                                
-                                                    // Ensure parent directories exist
-                                                    outputFile.getParentFile().mkdirs();
-                                
-                                                    try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-                                                        byte[] buffer = new byte[1024];
-                                                        int length;
-                                                        while ((length = zis.read(buffer)) > 0) {
-                                                            fos.write(buffer, 0, length);
-                                                        }
-                                                    }
-                                
-                                                    System.out.println("File extracted to: " + outputFile.getAbsolutePath());
-                                                    return false;
-                                                }
-                                            }
-                                        }
-
-
-                                    } else if (os == 1 && i == 1) {
-                                        downloadFile(assetDownloadUrl, directory + File.separator + assetName);
-                                        System.out.println("Download complete: " + assetName);
-                                        String zipFilePath = (directory + File.separator + assetName);
-                                        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
-                                            ZipEntry zipEntry;
-                                            String fileName = "version.dll";
-                                            // Iterate through each entry in the ZIP file
-                                            while ((zipEntry = zis.getNextEntry()) != null) {
-                                                if (zipEntry.getName().equals(fileName)) {
-                                                    File outputFile = new File(directory, fileName);
-                                
-                                                    // Ensure parent directories exist
-                                                    outputFile.getParentFile().mkdirs();
-                                
-                                                    try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-                                                        byte[] buffer = new byte[1024];
-                                                        int length;
-                                                        while ((length = zis.read(buffer)) > 0) {
-                                                            fos.write(buffer, 0, length);
-                                                        }
-                                                    }
-                                
-                                                    System.out.println("File extracted to: " + outputFile.getAbsolutePath());
-                                                    return false;
-                                                }
-                                            }
-                                        }
-
-
-
-
-                                    } else if (os == 2 && i == 2) {
+                                    if (os == 2 && i == 2) {
                                         downloadFile(assetDownloadUrl, directory + File.separator + assetName);
                                         System.out.println("Download complete: " + assetName);
                                         String zipFilePath = (directory + File.separator + assetName);
@@ -277,21 +214,26 @@ class App {
         ArrayList<String> mods = read();
         System.out.println("Running as user: " + System.getProperty("user.name"));
         if (!mods.isEmpty()) {
-            if (!checkPath((System.getProperty("user.home") + "\\AppData/Roaming\\Balatro\\Mods"), "C\\Program Files (x86)\\Steam\\steamapps\\common\\Balatro", 2, System.getProperty("os.name")) || 
-            !checkPath("/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods", "/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Balatro", 2, System.getProperty("os.name")))
+            if (!checkPath("/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods", "/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Balatro", 2, System.getProperty("os.name")))
             {
                 System.out.println("If your os is supported, lovely has been downloaded into your Balatro folder. If you are unsure if your system is supported, check in \"Steam>Balatro>Properties>Browse Local Files\" and loook for version.dll. If you dont see it, open an issue on github with your OS, Store, and Mods and Game path. Make sure you open your game again to create the mods folder to clone into. Also, Please add \"WINEDLLOVERRIDES=\"version=n,b\"%command%\"  to you rsteam lauch options. Best of luck modding, zrm9901!");
             } else if (modsFolder == null){
-                System.out.println("could not find mods folder or game directory folder. make an issue on github to add it");
+                System.out.println("could not find mods folder or game directory folder. make an issue on github to add it. For now please manually input your Balatro data path, and Balatro Appdata folder");
+                Scanner sc = new Scanner(System.in);
+                String path = sc.nextLine();
+                String directory = sc.nextLine();
+                checkPath(path, directory, 0, System.getProperty("os.name"));
+
             } else {
                 System.out.println("cloning now");
                 for (int i = 0; i < mods.size(); i++) {
                     MyThread thread = app.new MyThread(mods.get(i));
                     thread.start();
+                    thread.start();
                 }
+                }
+            } else {
+                System.out.println("No mods found in mods.txt / no mods.txt found. Make sure you have a mods.txt with at least one repository in it.");
             }
-        } else {
-            System.out.println("No mods found in mods.txt / no mods.txt found. Make sure you have a mods.txt with at least one repository in it.");
-        }
+        } 
     }
-}

@@ -23,8 +23,8 @@ If you want support for your os, give me your mods path and platform (and prefer
 
 If you want to compile it yourself, you need to have vscode installed, download the source, then unzip it and open the folder in vscode, you then can either run the App.java file in src or run "mvn clean package" to build the project, the compiled jar will be in target
 
-#Credits
-ethangreen-dev: Lovely, which is automatically downloaded when the program is first run.
-Project666: made the first update script and inspired me to make one for linux.
-candycaneannihalator(etherware2): helped test out stuff on debian.
+#Credits <br>
+ethangreen-dev: Lovely, which is automatically downloaded when the program is first run. <br>
+Project666: made the first update script and inspired me to make one for linux. <br>
+candycaneannihalator(etherware2): helped test out stuff on debian. <br>
 

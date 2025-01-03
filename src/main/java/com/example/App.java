@@ -41,6 +41,7 @@ class App {
             while (sc.hasNextLine()) {
                 read.add(sc.nextLine());
             }
+            sc.close();
             return read;
         } catch (Exception e) {
             System.out.println("Something went wrong reading file");
@@ -50,11 +51,18 @@ class App {
     public static void clone(String path, String url) {
         
     }
-    public static boolean checkPath(String path, String directory, int os) {
+    public static boolean checkPath(String path, String directory, int os, String platform) {
+        
+        
+        
+        
+        
+        
+        
         try {
             File check = new File(path);
-            File lovely = new File(directory + "/lovely.dll");
-            if (!check.exists()) {
+            File direct = new File(directory);
+            if (!check.exists() && direct.exists()) {
 
                 System.out.println("Mods folder not detected, fetching lovely");
                 String apiUrl = ("https://api.github.com/repos/ethangreen-dev/lovely-injector/releases/tags/" + getLatestReleaseTag());
@@ -78,7 +86,6 @@ class App {
                                     if (os ==0 && i == 0) {
                                         downloadFile(assetDownloadUrl, directory + "/" + assetName);
                                         System.out.println("Download complete: " + assetName);
-                                        File zipFile = new File(directory + "/" + assetName);
                                         String zipFilePath = (directory + "/" + assetName);
                                         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
                                             ZipEntry zipEntry;
@@ -109,7 +116,6 @@ class App {
                                     } else if (os == 1 && i == 1) {
                                         downloadFile(assetDownloadUrl, directory + "/" + assetName);
                                         System.out.println("Download complete: " + assetName);
-                                        File zipFile = new File(directory + "/" + assetName);
                                         String zipFilePath = (directory + "/" + assetName);
                                         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
                                             ZipEntry zipEntry;
@@ -142,7 +148,6 @@ class App {
                                     } else if (os == 2 && i == 2) {
                                         downloadFile(assetDownloadUrl, directory + "/" + assetName);
                                         System.out.println("Download complete: " + assetName);
-                                        File zipFile = new File(directory + "/" + assetName);
                                         String zipFilePath = (directory + "/" + assetName);
                                         try (ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFilePath))) {
                                             ZipEntry zipEntry;
@@ -151,7 +156,6 @@ class App {
                                             while ((zipEntry = zis.getNextEntry()) != null) {
                                                 if (zipEntry.getName().equals(fileName)) {
                                                     File outputFile = new File(directory, fileName);
-                                
                                                     // Ensure parent directories exist
                                                     outputFile.getParentFile().mkdirs();
                                 
@@ -162,19 +166,12 @@ class App {
                                                             fos.write(buffer, 0, length);
                                                         }
                                                     }
-                                
                                                     System.out.println("File extracted to: " + outputFile.getAbsolutePath());
-
                                                     return false;
                                                 }
                                             }
                                         }
-
-
-
-
                                     }
-
                                 } catch (Exception e) {
                                     System.out.println(e.getMessage());
                                 }
@@ -230,8 +227,8 @@ class App {
 
         ArrayList<String> mods = read();
         if (!mods.isEmpty()) {
-            if (!checkPath((System.getProperty("user.home")) + "\\AppData/Roaming\\Balatro\\Mods", "C\\Program Files (x86)\\Steam\\steamapps\\common\\Balatro", 2) && Arrays.asList("Windows 10", "Windows 11").contains(System.getProperty("os.name")) || 
-            !checkPath("/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods", "/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Balatro", 2) && System.getProperty("os.name").equals("Linux")) 
+            if (!checkPath((System.getProperty("user.home") + "\\AppData/Roaming\\Balatro\\Mods"), "C\\Program Files (x86)\\Steam\\steamapps\\common\\Balatro", 2, System.getProperty("os.name")) || 
+            !checkPath("/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods", "/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Balatro", 2, System.getProperty("os.name")))
             {
                 System.out.println("Lovely, downloaded and extracted, please start Balatro at least once to populate the mods folder");
             } else {

@@ -226,6 +226,7 @@ class App {
         System.out.println("Running as user: " + System.getProperty("user.name"));
         if (!mods.isEmpty()) {
             ArrayList<String> steamApps = new ArrayList<>();
+            System.out.println("Enter your steamapp folder path, if you arent sure or are using a mainline store + distro, leave it blank");
             Scanner sc = new Scanner(System.in);
             String directory = sc.nextLine();
             if (!directory.isEmpty()) {

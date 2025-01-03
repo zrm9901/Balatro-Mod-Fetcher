@@ -1,13 +1,9 @@
 # What it currently does
-I completely redid the code after realizing that it would be a pain to integrate new systems, so I redid it and I realized that installing lovely was an issue, so I made it install automatically when you run the jar. Thats all it will do until tomorrow when I wake up and work on it some more.  Sorry for the inconvinience.
+I completely redid the code after realizing that it would be a pain to integrate new systems, so I redid it and I realized that installing lovely was an issue, so I made it install automatically when you run the jar. 
 
-
-
-
-# Inactive for now
 A short, bundled jar file that imports mods for belatro, and can search subfolders.
 
-(You will need to have run the game at least once and have java installed)
+(You will need to have run the game at least once after installing lovely with the script and have java installed)
 
 simply create a file called mods.txt in the directory that holds your jar file, then run it in the command line with java -jar clone1-1.jar
 

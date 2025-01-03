@@ -281,6 +281,8 @@ class App {
             !checkPath("/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata/2379780/pfx/drive_c/users/steamuser/AppData/Roaming/Balatro/Mods", "/home/zrm9901/.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/common/Balatro", 2, System.getProperty("os.name")))
             {
                 System.out.println("If your os is supported, lovely has been downloaded into your Balatro folder. If you are unsure if your system is supported, check in \"Steam>Balatro>Properties>Browse Local Files\" and loook for version.dll. If you dont see it, open an issue on github with your OS, Store, and Mods and Game path. Make sure you open your game again to create the mods folder to clone into. Also, Please add \"WINEDLLOVERRIDES=\"version=n,b\"%command%\"  to you rsteam lauch options. Best of luck modding, zrm9901!");
+            } else if (modsFolder == null){
+                System.out.println("could not find mods folder or game directory folder. make an issue on github to add it");
             } else {
                 System.out.println("cloning now");
                 for (int i = 0; i < mods.size(); i++) {

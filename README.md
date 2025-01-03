@@ -1,4 +1,4 @@
-#Features <be>
+#Features <br>
 I completely redid the code after realizing that it would be a pain to integrate new systems, so I redid it and I realized that installing lovely was an issue, so I made it install automatically when you run the jar. 
 
 A short, bundled jar file that imports mods for belatro, and can search subfolders.

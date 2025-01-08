@@ -1,3 +1,8 @@
+#Important <br>
+I doubt anyone is going to see this, but this wont work with cryptid for a bit because the newest steammoded woont work with cryprtid because of some changes. just remove steammoded from your mods.txt and download the archive manually and install it with the rest of your mods<br> 
+https://github.com/Steamodded/smods/archive/refs/tags/old-calc.zip
+
+
 #Features <br>
 I completely redid the code after realizing that it would be a pain to integrate new systems, so I redid it and I realized that installing lovely was an issue, so I made it install automatically when you run the jar. 
 
